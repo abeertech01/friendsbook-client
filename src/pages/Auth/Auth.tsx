@@ -1,10 +1,13 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { FieldValues, useForm } from "react-hook-form"
 import clsx from "clsx"
+import SignupModal from "../../components/SignupModal"
 
 type AuthProps = {}
 
 const Auth: React.FC<AuthProps> = () => {
+  const [signupModalOpen, setSignupModalOpen] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -12,8 +15,15 @@ const Auth: React.FC<AuthProps> = () => {
     formState: { errors },
   } = useForm<FieldValues>()
 
+  useEffect(() => {
+    setSignupModalOpen(false)
+  }, [])
+
   return (
     <div className="lg:h-screen">
+      {signupModalOpen && (
+        <SignupModal setSignupModalOpen={setSignupModalOpen} />
+      )}
       <div className="bg-light-gray lg:h-3/4">
         <div className="h-full lg:max-w-[980px] mx-auto flex items-center">
           <div className="grid grid-cols-[auto_39.5rem] gap-[8rem] items-center">
@@ -82,14 +92,28 @@ const Auth: React.FC<AuthProps> = () => {
                 Forgotten password?
               </button>
               <hr className="w-full mb-6" />
-              <button className="paste-button w-full text-[1.7rem]">
+              <button
+                onClick={() => setSignupModalOpen(true)}
+                className="paste-button w-full text-[1.7rem]"
+              >
                 Create new account
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div className="h-[10rem] lg:h-1/4"></div>
+      <div className="h-[10rem] lg:h-1/4 lg:max-w-[980px] text-[1.3rem] py-6 text-justify mx-auto text-gray-400">
+        <p className="[word-spacing:5px]">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam,
+          impedit! <br /> <hr className="my-4" />
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, neque
+          vel! Obcaecati sequi velit nobis esse sit, eveniet aspernatur
+          exercitationem ducimus maxime magnam placeat illum facilis voluptate
+          corporis dignissimos tempora libero. Perspiciatis ipsam, quas fuga
+          repellat sapiente non natus et architecto quam, eius itaque deserunt
+          neque voluptate pariatur at optio?
+        </p>
+      </div>
     </div>
   )
 }
