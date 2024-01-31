@@ -1,13 +1,9 @@
-import { Route, RouterProvider, createBrowserRouter } from "react-router-dom"
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import "./App.css"
 import Home from "./pages/Home/Home"
 import Profile from "./pages/Profile/Profile"
 import ErrorPage from "./components/ErrorPage"
 import Auth from "./pages/Auth/Auth"
-
-// const router = createBrowserRouter(
-//   createRoutesFromElements(<Route path="/" element={<Home />}></Route>)
-// )
 
 const router = createBrowserRouter([
   {

@@ -8,6 +8,10 @@ type AuthProps = {}
 const Auth: React.FC<AuthProps> = () => {
   const [signupModalOpen, setSignupModalOpen] = useState(false)
 
+  useEffect(() => {
+    setSignupModalOpen(false)
+  }, [])
+
   const {
     register,
     handleSubmit,
@@ -15,9 +19,15 @@ const Auth: React.FC<AuthProps> = () => {
     formState: { errors },
   } = useForm<FieldValues>()
 
-  useEffect(() => {
-    setSignupModalOpen(false)
-  }, [])
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      console.log(data)
+
+      reset()
+    } catch (error) {
+      console.log("error: ", error)
+    }
+  }
 
   return (
     <div className="lg:h-screen">
@@ -37,7 +47,10 @@ const Auth: React.FC<AuthProps> = () => {
               </p>
             </div>
             <div className="card-shadow flex flex-col items-center min-h-[10rem] rounded-[1rem] bg-white p-8">
-              <form className="flex flex-col w-full mb-6">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col w-full mb-6"
+              >
                 <input
                   type="email"
                   {...register("email", {
@@ -51,8 +64,13 @@ const Auth: React.FC<AuthProps> = () => {
                   )}
                 />
                 {errors.email?.type === "required" && (
-                  <p className="text-red-400 text-left mb-6">
+                  <p className="text-red-400 text-[1.3rem] text-left mb-6">
                     Email is Required.
+                  </p>
+                )}
+                {errors.email?.type === "pattern" && (
+                  <p className="text-red-400 text-[1.3rem] text-left">
+                    Email is not valid.
                   </p>
                 )}
                 <input
@@ -74,12 +92,12 @@ const Auth: React.FC<AuthProps> = () => {
                   )}
                 />
                 {errors.password?.type === "checkLength" && (
-                  <p className="text-red-400 text-left mb-4">
+                  <p className="text-red-400 text-[1.3rem] text-left mb-4">
                     Password should be at-least 6 characters
                   </p>
                 )}
                 {errors.password?.type === "matchPattern" && (
-                  <p className="text-red-400 text-left mb-4">
+                  <p className="text-red-400 text-[1.3rem] text-left mb-4">
                     Password should contain at least one uppercase letter,
                     lowercase letter, digit, and special symbol.
                   </p>
@@ -105,7 +123,10 @@ const Auth: React.FC<AuthProps> = () => {
       <div className="h-[10rem] lg:h-1/4 lg:max-w-[980px] text-[1.3rem] py-6 text-justify mx-auto text-gray-400">
         <p className="[word-spacing:5px]">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam,
-          impedit! <br /> <hr className="my-4" />
+          impedit!
+        </p>{" "}
+        <hr className="my-4" />
+        <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, neque
           vel! Obcaecati sequi velit nobis esse sit, eveniet aspernatur
           exercitationem ducimus maxime magnam placeat illum facilis voluptate
