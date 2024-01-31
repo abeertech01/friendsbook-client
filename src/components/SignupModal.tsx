@@ -1,17 +1,19 @@
 import clsx from "clsx"
-import React, { memo } from "react"
+import React, { memo, useContext } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { FaQuestionCircle } from "react-icons/fa"
 import { RxCross2 } from "react-icons/rx"
 import { CREATE_USER } from "../graphql/mutations"
 import { useMutation } from "@apollo/client"
 import { useNavigate } from "react-router-dom"
+import { AuthContext } from "../context/authContext"
 
 type SignupModalProps = {
   setSignupModalOpen: (isModal: boolean) => void
 }
 
 const SignupModal: React.FC<SignupModalProps> = ({ setSignupModalOpen }) => {
+  const context = useContext(AuthContext)
   const navigate = useNavigate()
   const [createUser, { loading }] = useMutation(CREATE_USER)
 
@@ -25,7 +27,8 @@ const SignupModal: React.FC<SignupModalProps> = ({ setSignupModalOpen }) => {
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     try {
       const { data } = await createUser({
-        update(_, {}) {
+        update(_, { data: token }) {
+          context?.login(token)
           navigate("/")
         },
         variables: {
