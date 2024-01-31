@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from "react"
-import { FieldValues, useForm } from "react-hook-form"
+import React, { useContext, useEffect, useState } from "react"
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import clsx from "clsx"
 import SignupModal from "../../components/SignupModal"
+import { GET_USER_TOKEN } from "../../graphql/queries"
+import { useLazyQuery } from "@apollo/client"
+import { useNavigate } from "react-router-dom"
+import { AuthContext } from "../../context/authContext"
 
 type AuthProps = {}
 
 const Auth: React.FC<AuthProps> = () => {
+  const navigate = useNavigate()
+  const context = useContext(AuthContext)
+  const [getToken, { loading }] = useLazyQuery(GET_USER_TOKEN)
   const [signupModalOpen, setSignupModalOpen] = useState(false)
 
   useEffect(() => {
@@ -19,11 +26,23 @@ const Auth: React.FC<AuthProps> = () => {
     formState: { errors },
   } = useForm<FieldValues>()
 
-  const onSubmit = async (data: FieldValues) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     try {
-      console.log(data)
+      const { data } = await getToken({
+        // onError({ graphQLErrors }) {
+        //   console.log("graphQLErrors " + graphQLErrors)
+        // },
+        variables: {
+          email: formData.email,
+          password: formData.password,
+        },
+      })
 
-      reset()
+      if (data.getUserToken) {
+        context?.login(data.getUserToken)
+        reset()
+        navigate("/")
+      }
     } catch (error) {
       console.log("error: ", error)
     }

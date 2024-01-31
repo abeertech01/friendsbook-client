@@ -4,6 +4,7 @@ import App from "./App.tsx"
 import "./index.css"
 import "./utilities.css"
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
+import { AuthProvider } from "./context/authContext.tsx"
 
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql",
@@ -11,9 +12,11 @@ const client = new ApolloClient({
 })
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  <AuthProvider>
     <ApolloProvider client={client}>
-      <App />
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
     </ApolloProvider>
-  </React.StrictMode>
+  </AuthProvider>
 )
