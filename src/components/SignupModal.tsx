@@ -26,8 +26,8 @@ const SignupModal: React.FC<SignupModalProps> = ({ setSignupModalOpen }) => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     try {
-      const { data } = await createUser({
-        update(_, { data: token }) {
+      await createUser({
+        update(_, { data: { createUser: token } }) {
           context?.login(token)
           navigate("/")
         },
@@ -40,7 +40,6 @@ const SignupModal: React.FC<SignupModalProps> = ({ setSignupModalOpen }) => {
         },
       })
 
-      console.log("data ", data.createUser)
       reset()
     } catch (error) {
       console.log("error: ", error)
