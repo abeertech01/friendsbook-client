@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home"
 import Profile from "./pages/Profile/Profile"
 import ErrorPage from "./components/ErrorPage"
 import Auth from "./pages/Auth/Auth"
+import RootLayout from "./components/RootLayout"
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <RootLayout>
+        <RouterProvider router={router} />
+      </RootLayout>
     </>
   )
 }

@@ -80,7 +80,6 @@
     Helvetica, Arial, sans-serif;
   font-size: 17px;
   line-height: 100%;
-  margin: 0;
   outline: 0;
   padding: 11px 15px 12px;
   text-align: center;
@@ -88,7 +87,6 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 100%;
 }
 
 .paste-button:hover {

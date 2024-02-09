@@ -5,3 +5,19 @@ export const GET_USER_TOKEN = gql`
     getUserToken(email: $email, password: $password)
   }
 `
+
+export const GET_ALL_POSTS = gql`
+  query getPosts {
+    getPosts {
+      id
+      content
+      authorId
+      author {
+        username
+        firstName
+        lastName
+      }
+      createdAt
+    }
+  }
+`

@@ -3,13 +3,9 @@ import ReactDOM from "react-dom/client"
 import App from "./App.tsx"
 import "./index.css"
 import "./utilities.css"
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
+import { ApolloProvider } from "@apollo/client"
 import { AuthProvider } from "./context/authContext.tsx"
-
-const client = new ApolloClient({
-  uri: "http://localhost:3000/graphql",
-  cache: new InMemoryCache(),
-})
+import client from "./apolloClient.ts"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <AuthProvider>

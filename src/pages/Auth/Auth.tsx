@@ -96,31 +96,13 @@ const Auth: React.FC<AuthProps> = () => {
                   type="password"
                   {...register("password", {
                     required: true,
-                    validate: {
-                      checkLength: (value) => value.length >= 6,
-                      matchPattern: (value) =>
-                        /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.*[!@#$*])/.test(
-                          value
-                        ),
-                    },
                   })}
                   placeholder="Password"
                   className={clsx(
-                    errors.email ? "mb-1" : "mb-4",
+                    errors.password ? "mb-1" : "mb-4",
                     "border h-[5.2rem] rounded-lg text-[1.6rem] p-4"
                   )}
                 />
-                {errors.password?.type === "checkLength" && (
-                  <p className="text-red-400 text-[1.3rem] text-left mb-4">
-                    Password should be at-least 6 characters
-                  </p>
-                )}
-                {errors.password?.type === "matchPattern" && (
-                  <p className="text-red-400 text-[1.3rem] text-left mb-4">
-                    Password should contain at least one uppercase letter,
-                    lowercase letter, digit, and special symbol.
-                  </p>
-                )}
                 <button type="submit" role="button" className="peach-button">
                   <span className="text">Login</span>
                 </button>
