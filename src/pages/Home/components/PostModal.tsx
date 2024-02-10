@@ -2,6 +2,8 @@ import React, { ChangeEvent, useState } from "react"
 import userIcon from "../../../assets/user.png"
 import { RxCross2 } from "react-icons/rx"
 import clsx from "clsx"
+import EmojiPicker from "emoji-picker-react"
+import { BsEmojiSmile } from "react-icons/bs"
 
 type PostModalProps = {
   setIsCreatePost: (isCreatePost: boolean) => void
@@ -9,6 +11,7 @@ type PostModalProps = {
 
 const PostModal: React.FC<PostModalProps> = ({ setIsCreatePost }) => {
   const [text, setText] = useState("")
+  const [showPicker, setShowPicker] = useState(false)
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
@@ -16,6 +19,11 @@ const PostModal: React.FC<PostModalProps> = ({ setIsCreatePost }) => {
     // Adjust the height of the textarea based on its scroll height
     e.target.style.height = "auto" // Reset height to auto
     e.target.style.height = e.target.scrollHeight + "px" // Set height to scroll height
+  }
+
+  const onEmojiClick = (emojiObject: any, _: any) => {
+    setText((prev) => prev + emojiObject.emoji)
+    setShowPicker(false)
   }
 
   return (
@@ -55,6 +63,23 @@ const PostModal: React.FC<PostModalProps> = ({ setIsCreatePost }) => {
             text.length <= 100 ? "text-[2.2rem]" : "text-[1.6rem]"
           )}
         />
+        <div className="flex justify-end mx-[1.3rem] relative">
+          {showPicker && (
+            <EmojiPicker
+              onEmojiClick={onEmojiClick}
+              style={{
+                width: "35rem",
+                height: "40rem",
+                position: "absolute",
+                bottom: 0,
+                right: "3rem",
+              }}
+            />
+          )}
+          <button onClick={() => setShowPicker((val) => !val)}>
+            <BsEmojiSmile className="text-[2.5rem]" />
+          </button>
+        </div>
         <button className="text-[1.6rem] font-semibold paste-button m-[1.3rem] w-[calc(100%-2.6rem)]">
           Post
         </button>

@@ -17,3 +17,17 @@ export const CREATE_USER = gql`
     )
   }
 `
+export const CREATE_POST = gql`
+  mutation AddPost($content: String!) {
+    addPost(content: $content) {
+      id
+      content
+      createdAt
+      author {
+        firstName
+        lastName
+        username
+      }
+    }
+  }
+`
