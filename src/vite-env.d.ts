@@ -1,8 +1,15 @@
 /// <reference types="vite/client" />
 
+interface User {
+  id: string
+  username: string
+  firstName: string
+  lastName: string
+  email: string
+}
+
 interface Post {
   id: string
-  title: string
   content: string
   authorId: string
   author: {

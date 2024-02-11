@@ -16,6 +16,7 @@ const Auth: React.FC<AuthProps> = () => {
   const [signupModalOpen, setSignupModalOpen] = useState(false)
 
   useEffect(() => {
+    if (context?.user) navigate("/")
     setSignupModalOpen(false)
   }, [])
 
@@ -29,9 +30,6 @@ const Auth: React.FC<AuthProps> = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     try {
       const { data } = await getToken({
-        // onError({ graphQLErrors }) {
-        //   console.log("graphQLErrors " + graphQLErrors)
-        // },
         variables: {
           email: formData.email,
           password: formData.password,
@@ -79,7 +77,7 @@ const Auth: React.FC<AuthProps> = () => {
                   placeholder="Email Address"
                   className={clsx(
                     errors.email ? "mb-1" : "mb-4",
-                    "border h-[5.2rem] rounded-lg text-[1.6rem] p-4"
+                    "border outline-none h-[5.2rem] rounded-lg text-[1.6rem] p-4"
                   )}
                 />
                 {errors.email?.type === "required" && (
@@ -100,7 +98,7 @@ const Auth: React.FC<AuthProps> = () => {
                   placeholder="Password"
                   className={clsx(
                     errors.password ? "mb-1" : "mb-4",
-                    "border h-[5.2rem] rounded-lg text-[1.6rem] p-4"
+                    "border outline-none h-[5.2rem] rounded-lg text-[1.6rem] p-4"
                   )}
                 />
                 <button type="submit" role="button" className="peach-button">

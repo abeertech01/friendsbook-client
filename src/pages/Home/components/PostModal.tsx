@@ -1,17 +1,31 @@
-import React, { ChangeEvent, useState } from "react"
+import React, { ChangeEvent, useCallback, useState } from "react"
 import userIcon from "../../../assets/user.png"
 import { RxCross2 } from "react-icons/rx"
 import clsx from "clsx"
 import EmojiPicker from "emoji-picker-react"
 import { BsEmojiSmile } from "react-icons/bs"
+import { CREATE_POST } from "../../../graphql/mutations"
+import { useMutation } from "@apollo/client"
+import { GET_ALL_POSTS } from "../../../graphql/queries"
 
 type PostModalProps = {
+  user: User | null | undefined
   setIsCreatePost: (isCreatePost: boolean) => void
 }
 
-const PostModal: React.FC<PostModalProps> = ({ setIsCreatePost }) => {
+const PostModal: React.FC<PostModalProps> = ({ user, setIsCreatePost }) => {
   const [text, setText] = useState("")
   const [showPicker, setShowPicker] = useState(false)
+  const [addPost, { loading }] = useMutation(CREATE_POST, {
+    refetchQueries: [
+      {
+        query: GET_ALL_POSTS,
+      },
+    ],
+    variables: {
+      content: text,
+    },
+  })
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
@@ -24,6 +38,18 @@ const PostModal: React.FC<PostModalProps> = ({ setIsCreatePost }) => {
   const onEmojiClick = (emojiObject: any, _: any) => {
     setText((prev) => prev + emojiObject.emoji)
     setShowPicker(false)
+  }
+
+  const handlePost = async () => {
+    try {
+      await addPost()
+
+      console.log(text)
+      setText("")
+      setIsCreatePost(false)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -45,9 +71,8 @@ const PostModal: React.FC<PostModalProps> = ({ setIsCreatePost }) => {
             className="h-[4rem] inline-block mr-[0.7rem]"
           />
           <h1 className="text-[1.6rem]">
-            {/* {post.author.firstName +
-              (post.author.lastName ? " " + post.author.lastName : "")} */}
-            Abdul Ahad Abeer
+            {user?.firstName && user?.firstName}{" "}
+            {user?.lastName && user?.lastName}
           </h1>
         </div>
         <textarea
@@ -69,7 +94,7 @@ const PostModal: React.FC<PostModalProps> = ({ setIsCreatePost }) => {
               onEmojiClick={onEmojiClick}
               style={{
                 width: "35rem",
-                height: "40rem",
+                height: "42rem",
                 position: "absolute",
                 bottom: 0,
                 right: "3rem",
@@ -80,7 +105,10 @@ const PostModal: React.FC<PostModalProps> = ({ setIsCreatePost }) => {
             <BsEmojiSmile className="text-[2.5rem]" />
           </button>
         </div>
-        <button className="text-[1.6rem] font-semibold paste-button m-[1.3rem] w-[calc(100%-2.6rem)]">
+        <button
+          onClick={handlePost}
+          className="text-[1.6rem] font-semibold paste-button m-[1.3rem] w-[calc(100%-2.6rem)]"
+        >
           Post
         </button>
       </div>

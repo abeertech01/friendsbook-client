@@ -23,11 +23,7 @@ export const CREATE_POST = gql`
       id
       content
       createdAt
-      author {
-        firstName
-        lastName
-        username
-      }
+      authorId
     }
   }
 `

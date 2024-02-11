@@ -73,7 +73,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ setSignupModalOpen }) => {
                 minLength: 2,
               })}
               className={clsx(
-                "border rounded-[0.5rem] text-[1.6rem] px-4 py-2 bg-light-gray",
+                "border outline-none rounded-[0.5rem] text-[1.6rem] px-4 py-2 bg-light-gray",
                 errors.firstName?.type === "required"
                   ? "border-red-400"
                   : "border-gray-300"
@@ -83,7 +83,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ setSignupModalOpen }) => {
               type="text"
               placeholder="Last name"
               {...register("lastName")}
-              className="border border-gray-300 rounded-[0.5rem] text-[1.6rem] px-4 py-2 bg-light-gray"
+              className="border outline-none border-gray-300 rounded-[0.5rem] text-[1.6rem] px-4 py-2 bg-light-gray"
             />
           </div>
           <input
@@ -93,7 +93,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ setSignupModalOpen }) => {
               required: true,
             })}
             className={clsx(
-              "w-full border rounded-[0.5rem] text-[1.6rem] px-4 py-2 bg-light-gray mb-4",
+              "w-full border outline-none rounded-[0.5rem] text-[1.6rem] px-4 py-2 bg-light-gray mb-4",
               errors.username?.type === "required"
                 ? "border-red-400"
                 : "border-gray-300"
@@ -107,7 +107,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ setSignupModalOpen }) => {
               pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
             })}
             className={clsx(
-              "w-full border rounded-[0.5rem] text-[1.6rem] px-4 py-2 bg-light-gray mb-4",
+              "w-full border outline-none rounded-[0.5rem] text-[1.6rem] px-4 py-2 bg-light-gray mb-4",
               errors.email?.type === "required"
                 ? "border-red-400"
                 : "border-gray-300"
@@ -127,7 +127,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ setSignupModalOpen }) => {
               },
             })}
             className={clsx(
-              "w-full border rounded-[0.5rem] text-[1.6rem] px-4 py-2 bg-light-gray mb-4",
+              "w-full border outline-none rounded-[0.5rem] text-[1.6rem] px-4 py-2 bg-light-gray mb-4",
               errors.password?.type === "required"
                 ? "border-red-400"
                 : "border-gray-300"
