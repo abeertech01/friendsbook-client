@@ -4,19 +4,24 @@ import clsx from "clsx"
 import SignupModal from "../../components/SignupModal"
 import { GET_USER_TOKEN } from "../../graphql/queries"
 import { useLazyQuery } from "@apollo/client"
-import { useNavigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../context/authContext"
+import useAuth from "../../util/useAuth"
 
 type AuthProps = {}
 
 const Auth: React.FC<AuthProps> = () => {
   const navigate = useNavigate()
+  const { isAuthenticated } = useAuth()
   const context = useContext(AuthContext)
   const [getToken, { loading }] = useLazyQuery(GET_USER_TOKEN)
   const [signupModalOpen, setSignupModalOpen] = useState(false)
 
+  if (isAuthenticated) {
+    return <Navigate to={"/"} />
+  }
+
   useEffect(() => {
-    if (context?.user) navigate("/")
     setSignupModalOpen(false)
   }, [])
 

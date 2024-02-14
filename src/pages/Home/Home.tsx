@@ -1,29 +1,28 @@
 import { useQuery } from "@apollo/client"
-import React, { useContext, useEffect, useState } from "react"
-import { Link, useNavigate, useLocation } from "react-router-dom"
+import React, { useContext, useState } from "react"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import { GET_ALL_POSTS } from "../../graphql/queries"
 import Post from "./components/Post"
 import userIcon from "../../assets/user.png"
 import PostModal from "./components/PostModal"
 import { AuthContext } from "../../context/authContext"
+import useAuth from "../../util/useAuth"
 
 type HomeProps = {}
 
 const Home: React.FC<HomeProps> = () => {
   const context = useContext(AuthContext)
+  const { isAuthenticated } = useAuth()
   const navigate = useNavigate()
-  const { pathname } = useLocation()
   const [isCreatePost, setIsCreatePost] = useState(false)
   const { loading, error, data } = useQuery(GET_ALL_POSTS)
 
-  useEffect(() => {
-    if (!context?.user) navigate("/auth")
-  }, [pathname])
+  if (!isAuthenticated) {
+    return <Navigate to={"/auth"} />
+  }
 
   if (loading) return <h1>Loading...</h1>
   if (error) return <h1 className="text-[2rem]">Error! {error.message}</h1>
-
-  console.log(data.getPosts)
 
   const logout = () => {
     context?.logout()

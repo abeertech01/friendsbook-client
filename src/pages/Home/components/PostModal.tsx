@@ -35,6 +35,10 @@ const PostModal: React.FC<PostModalProps> = ({ user, setIsCreatePost }) => {
     e.target.style.height = e.target.scrollHeight + "px" // Set height to scroll height
   }
 
+  const handleTextarea = () => {
+    setShowPicker(false)
+  }
+
   const onEmojiClick = (emojiObject: any, _: any) => {
     setText((prev) => prev + emojiObject.emoji)
     setShowPicker(false)
@@ -83,6 +87,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, setIsCreatePost }) => {
           placeholder="What's on your mind, Abeer?"
           value={text}
           onChange={handleChange}
+          onClick={handleTextarea}
           className={clsx(
             "m-[1.3rem] w-[calc(100%-2.6rem)] outline-none resize-none h-auto",
             text.length <= 100 ? "text-[2.2rem]" : "text-[1.6rem]"
