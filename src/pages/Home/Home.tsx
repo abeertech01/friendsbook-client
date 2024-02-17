@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client"
 import React, { useContext, useState } from "react"
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { GET_ALL_POSTS } from "../../graphql/queries"
 import Post from "./components/Post"
 import userIcon from "../../assets/user.png"
@@ -13,7 +13,6 @@ type HomeProps = {}
 const Home: React.FC<HomeProps> = () => {
   const context = useContext(AuthContext)
   const { isAuthenticated } = useAuth()
-  const navigate = useNavigate()
   const [isCreatePost, setIsCreatePost] = useState(false)
   const { loading, error, data } = useQuery(GET_ALL_POSTS)
 
@@ -23,11 +22,6 @@ const Home: React.FC<HomeProps> = () => {
 
   if (loading) return <h1>Loading...</h1>
   if (error) return <h1 className="text-[2rem]">Error! {error.message}</h1>
-
-  const logout = () => {
-    context?.logout()
-    navigate("/auth")
-  }
 
   return (
     <>
@@ -41,11 +35,6 @@ const Home: React.FC<HomeProps> = () => {
           <Link to={"/auth"} className="text-blue underline">
             Auth
           </Link>
-        </p>
-        <p className="text-[1.7rem]">
-          <button onClick={logout} className="text-blue underline">
-            Logout
-          </button>
         </p>
 
         <div className="grid grid-cols-[3.8rem_auto] gap-[1rem] lg:max-w-[68rem] lg:mx-auto bg-[#FFFFFF] p-[1rem] rounded-xl mb-[1.5rem] card-shadow-2">
