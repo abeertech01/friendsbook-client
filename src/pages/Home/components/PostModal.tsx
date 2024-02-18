@@ -57,7 +57,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, setIsCreatePost }) => {
   }
 
   return (
-    <div className="fixed w-screen h-screen bg-[#eeeeeea5] flex justify-center items-center">
+    <div className="fixed w-screen h-screen bg-[#eeeeeea5] flex justify-center items-center z-50">
       <div className="w-[50rem] bg-[#FFFFFF] card-shadow rounded-xl">
         <div className="relative lg:h-[6rem] flex justify-center items-center text-[1.8rem] font-semibold border-b">
           Create post

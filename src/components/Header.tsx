@@ -17,7 +17,7 @@ const Header: React.FC<HeaderProps> = () => {
   }
 
   return (
-    <div className="relative h-[5.5rem] bg-white card-shadow-3 flex items-center justify-end px-[1rem]">
+    <div className="fixed w-full h-[5.5rem] bg-white card-shadow-3 flex items-center justify-end px-[1rem] z-30">
       <div className="relative">
         <button onClick={() => setIsDropdown((prev) => !prev)}>
           <img

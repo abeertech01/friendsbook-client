@@ -6,6 +6,18 @@ export const GET_USER_TOKEN = gql`
   }
 `
 
+export const GET_ALL_USERS = gql`
+  query getUsers {
+    getUsers {
+      id
+      username
+      firstName
+      lastName
+      email
+    }
+  }
+`
+
 export const GET_ALL_POSTS = gql`
   query getPosts {
     getPosts {
