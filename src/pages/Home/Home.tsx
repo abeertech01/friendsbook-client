@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useState } from "react"
 import { Navigate } from "react-router-dom"
 import userIcon from "../../assets/user.png"
 import PostModal from "./components/PostModal"

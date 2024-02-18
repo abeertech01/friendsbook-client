@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from "react"
+import React, { ChangeEvent, useState } from "react"
 import userIcon from "../../../assets/user.png"
 import { RxCross2 } from "react-icons/rx"
 import clsx from "clsx"
