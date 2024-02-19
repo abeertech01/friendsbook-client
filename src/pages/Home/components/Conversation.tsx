@@ -45,8 +45,9 @@ const Conversation: React.FC<ConversationProps> = ({ user, setIsConvOpen }) => {
       {/* Messages */}
       <div className="w-full relative">
         <ul className="absolute w-full bottom-0 right-0 left-0 px-4 flex flex-col gap-2">
-          {["message 1", "message 2", "message 3"].map((msg) => (
+          {["message 1", "message 2", "message 3"].map((msg, i) => (
             <li
+              key={i}
               className={clsx(
                 "w-full flex text-[1.5rem]",
                 msg.includes("3") ? "" : "justify-end"

@@ -27,3 +27,13 @@ export const CREATE_POST = gql`
     }
   }
 `
+
+export const CREATE_CONVERSATION = gql`
+  mutation AddConversation(
+    $name: String
+    $isGroup: Boolean
+    $userIds: [String]!
+  ) {
+    addConversation(name: $name, isGroup: $isGroup, userIds: $userIds)
+  }
+`
