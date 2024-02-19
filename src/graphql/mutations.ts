@@ -30,10 +30,20 @@ export const CREATE_POST = gql`
 
 export const CREATE_CONVERSATION = gql`
   mutation AddConversation(
-    $name: String
-    $isGroup: Boolean
     $userIds: [String]!
+    $isGroup: Boolean
+    $name: String
   ) {
-    addConversation(name: $name, isGroup: $isGroup, userIds: $userIds)
+    addConversation(userIds: $userIds, isGroup: $isGroup, name: $name) {
+      id
+      createdAt
+      isGroup
+      lastMessageAt
+      messages {
+        body
+      }
+      name
+      userIds
+    }
   }
 `
