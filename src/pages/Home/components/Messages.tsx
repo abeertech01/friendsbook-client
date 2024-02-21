@@ -16,8 +16,6 @@ const Messages: React.FC<MessagesProps> = ({ conversationId }) => {
     },
   })
 
-  console.log(conversationId)
-
   if (loading) return <h1>Loading...</h1>
   if (error) return <h1 className="text-[2rem]">Error! {error.message}</h1>
 

@@ -11,6 +11,7 @@ import { ADD_MESSAGE } from "../../../graphql/mutations"
 import { AuthContext } from "../../../context/authContext"
 import Messages from "./Messages"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
+import { GET_MESSAGES } from "../../../graphql/queries"
 
 type ConversationProps = {
   user: User | undefined
@@ -33,6 +34,11 @@ const Conversation: React.FC<ConversationProps> = ({ user, setIsConvOpen }) => {
   }
 
   const [addMessage, { loading }] = useMutation(ADD_MESSAGE, {
+    refetchQueries: [
+      {
+        query: GET_MESSAGES,
+      },
+    ],
     variables: {
       body: message,
       conversationId: context?.conversation?.id,

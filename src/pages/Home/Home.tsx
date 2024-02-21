@@ -39,7 +39,10 @@ const Home: React.FC<HomeProps> = () => {
             onClick={() => setIsCreatePost(true)}
             className="bg-[#F0F2F5] hover:bg-[#e4e6e9] h-[3.8rem] text-[#606266] text-[1.6rem] text-left px-[1.3rem] rounded-full"
           >
-            What's on your mind, Abeer?
+            What's on your mind,{" "}
+            {context?.user?.firstName +
+              (context?.user?.lastName ? context.user.lastName : "")}
+            ?
           </button>
         </div>
         <Posts />

@@ -87,8 +87,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   const setConversation = (conversation: Conversation) => {
-    console.log(conversation)
-
     dispatch({
       type: "SET_CONV",
       payload: conversation,
