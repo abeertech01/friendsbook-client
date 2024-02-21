@@ -28,6 +28,7 @@ const PostModal: React.FC<PostModalProps> = ({ user, setIsCreatePost }) => {
   })
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    e.preventDefault()
     setText(e.target.value)
 
     // Adjust the height of the textarea based on its scroll height
@@ -111,10 +112,11 @@ const PostModal: React.FC<PostModalProps> = ({ user, setIsCreatePost }) => {
           </button>
         </div>
         <button
+          disabled={loading}
           onClick={handlePost}
           className="text-[1.6rem] font-semibold paste-button m-[1.3rem] w-[calc(100%-2.6rem)]"
         >
-          Post
+          {loading ? "Loading..." : "Post"}
         </button>
       </div>
     </div>
