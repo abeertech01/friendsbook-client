@@ -17,19 +17,20 @@ const Contact: React.FC<ContactProps> = ({ user, setUser, setIsConvOpen }) => {
     variables: {
       name: user?.firstName + (user?.lastName ? ` ${user.lastName}` : ""),
       isGroup: false,
-      userIds: [context?.user?.id, user?.id],
+      userIds: [user?.id],
     },
   })
 
   if (loading) return <h1>Loading...</h1>
 
   const handleUserClick = async (user: User) => {
-    setIsConvOpen(true)
-    setUser(user)
     try {
-      const conversation = await addConversation()
+      const { data } = await addConversation()
 
-      console.log(conversation)
+      context?.setConversation(data.addConversation as Conversation)
+
+      setIsConvOpen(true)
+      setUser(user)
     } catch (error) {
       console.log(error)
     }

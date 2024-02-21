@@ -40,10 +40,33 @@ export const CREATE_CONVERSATION = gql`
       isGroup
       lastMessageAt
       messages {
+        id
+        createdAt
         body
+        sender {
+          firstName
+        }
       }
       name
       userIds
+    }
+  }
+`
+
+export const ADD_MESSAGE = gql`
+  mutation AddMessage(
+    $body: String!
+    $conversationId: String!
+    $senderId: String!
+  ) {
+    addMessage(
+      body: $body
+      conversationId: $conversationId
+      senderId: $senderId
+    ) {
+      id
+      createdAt
+      body
     }
   }
 `

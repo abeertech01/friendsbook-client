@@ -1,24 +1,24 @@
 import { jwtDecode } from "jwt-decode"
 import React, { createContext, useReducer } from "react"
 
-interface User {
-  id: string
-  username: string
-  firstName: string
-  lastName: string
-  email: string
-}
-
 interface InitialStateType {
   user: null | User
   login: (token: string) => void
   logout: () => void
+  conversation: null | Conversation
+  setConversation: (conversation: Conversation) => void
 }
 
 const initialState: InitialStateType = {
   user: null,
   login: (_: string) => {},
   logout: () => {},
+  conversation: null,
+  setConversation: (_: Conversation) => {},
+}
+
+const persistState = (state: InitialStateType) => {
+  localStorage
 }
 
 type AuthProviderProps = {
@@ -35,6 +35,8 @@ type AuthContextType = {
   user: null | User
   login: (token: string) => void
   logout: () => void
+  conversation: null | Conversation
+  setConversation: (conversation: Conversation) => void
 }
 
 const AuthContext = createContext<AuthContextType | null>(null)
@@ -42,6 +44,7 @@ const AuthContext = createContext<AuthContextType | null>(null)
 type ACTIONTYPE =
   | { type: "LOGIN"; payload: User }
   | { type: "LOGOUT"; payload: null }
+  | { type: "SET_CONV"; payload: Conversation }
 
 const authReducer = (state: InitialStateType, action: ACTIONTYPE) => {
   switch (action.type) {
@@ -54,6 +57,11 @@ const authReducer = (state: InitialStateType, action: ACTIONTYPE) => {
       return {
         ...state,
         user: action.payload,
+      }
+    case "SET_CONV":
+      return {
+        ...state,
+        conversation: action.payload,
       }
     default:
       return {
@@ -82,8 +90,25 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     })
   }
 
+  const setConversation = (conversation: Conversation) => {
+    console.log(conversation)
+
+    dispatch({
+      type: "SET_CONV",
+      payload: conversation,
+    })
+  }
+
   return (
-    <AuthContext.Provider value={{ user: state.user, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user: state.user,
+        login,
+        logout,
+        conversation: state.conversation,
+        setConversation,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

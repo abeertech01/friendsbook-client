@@ -33,3 +33,19 @@ export const GET_ALL_POSTS = gql`
     }
   }
 `
+
+export const GET_MESSAGES = gql`
+  query GetMessages($conversationId: String!) {
+    getMessages(conversationId: $conversationId) {
+      id
+      createdAt
+      conversationId
+      body
+      senderId
+      seen {
+        firstName
+        id
+      }
+    }
+  }
+`
