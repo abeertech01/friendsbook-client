@@ -106,8 +106,13 @@ const Auth: React.FC<AuthProps> = () => {
                     "border outline-none h-[5.2rem] rounded-lg text-[1.6rem] p-4"
                   )}
                 />
-                <button type="submit" role="button" className="peach-button">
-                  <span className="text">Login</span>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  role="button"
+                  className="peach-button"
+                >
+                  {loading ? "Loading..." : <span className="text">Login</span>}
                 </button>
               </form>
               <button className="text-[1.4rem] mb-6 text-blue">

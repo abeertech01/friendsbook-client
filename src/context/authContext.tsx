@@ -17,10 +17,6 @@ const initialState: InitialStateType = {
   setConversation: (_: Conversation) => {},
 }
 
-const persistState = (state: InitialStateType) => {
-  localStorage
-}
-
 type AuthProviderProps = {
   children: React.ReactNode
 }
